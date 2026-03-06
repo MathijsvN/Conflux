@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# virtual env
+venv/
+.env/
+
+# build
+build/
+dist/
+
+# coverage
+.coverage

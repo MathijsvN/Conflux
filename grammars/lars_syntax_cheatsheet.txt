@@ -1,0 +1,27 @@
+% Rule
+Head :- A and B and not(C) and time_win(N,0,1, diamond(D)).
+
+% Modalities
+box(φ)       % φ holds at all points (typically inside a window)
+diamond(φ)   % φ holds at some point (typically inside a window)
+
+% Windows
+time_win(L, HOP_OFF, HOP_SIZE, φ)
+tuple_win(K, φ)
+tuple_win(K, HOP_OFF, HOP_SIZE, φ)
+
+% Point operator
+@(T, φ)      % evaluate φ at time T (T = constant or variable)
+
+% Arithmetic & comparisons
+MATH(+, T1, T, C)    % T1 = T + C
+COMP(>,  X, C)
+COMP(>=, X, C)
+COMP(<,  X, C)
+
+% Negation
+not(φ)
+
+% Quoted predicates (special chars / IRIs)
+'hard*name'(X,Y)
+'http://ex.org/'(X,Y)

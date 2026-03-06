@@ -1,0 +1,4 @@
+# Supported Formats
+
+- DatalogMTL
+- LARS

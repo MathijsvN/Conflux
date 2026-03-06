@@ -1,0 +1,2 @@
+Vaccinated(Ben)@[200, 200]
+NoSympt(Ben)@[182,320]
