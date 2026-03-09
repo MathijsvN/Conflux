@@ -1,5 +1,3 @@
-import pytest
-
 from conflux.io.emit_lars import emit_formula, emit_rule, emit_lars_program
 from conflux.core.ast import Atom, UnaryTemporalAtom, BinaryTemporalAtom, Rule, ProgramIR
 
