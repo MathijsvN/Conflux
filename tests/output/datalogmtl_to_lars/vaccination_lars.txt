@@ -1,3 +1,0 @@
-182–199: nosympt(ben)
-200: vaccinated(ben), nosympt(ben)
-201–320: nosympt(ben)
