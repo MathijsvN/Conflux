@@ -14,7 +14,35 @@ class Atom:
     args: List[Any]
     interval: Tuple[int, int] = None  # Only used by DatalogMTL facts
 
+@dataclass
+class TemporalOp:
+    """
+    Base class for DatalogMTL temporal operators.
+    Not used directly — extended by unary and binary operators.
+    """
+    kind: str   # e.g. "
 
+@dataclass
+class UnaryTemporalAtom(TemporalOp):
+    """
+    Unary temporal operator:
+        Boxminus[a,b] φ
+        Diamondminus[a,b] φ
+        Boxplus[a,b] φ
+        Diamondplus[a,b] φ
+    """
+    interval: tuple[int, int]
+    child: any   # Atom, UnaryTemporalAtom, BinaryTemporalAtom
+
+@dataclass
+class BinaryTemporalAtom(TemporalOp):
+    """
+    Binary temporal operator with an interval [a,b],
+    such as α U[a,b] β or α S[a,b] β.
+    """
+    interval: tuple[int, int]
+    left: any   # α
+    right: any  # β
 @dataclass
 class Rule:
     """
