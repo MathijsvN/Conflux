@@ -1,0 +1,85 @@
+a1:researchassistantcandidate(X) :- time_win(5,0,1, box(a1:undergraduatestudent(X))).
+a1:researchassistantcandidate(X) :- time_win(2,0,1, diamond(a1:graduatestudent(X))).
+a1:researchassistantcandidate(X) :- time_win(2,0,1, box(a1:teachingassistant(X))).
+a1:researchassistant(X) :- time_win(5,0,1, box(a1:researchassistantcandidate(X))).
+a1:researchassistant(X) :- a1:publicationauthor(Y,X), time_win(1,0,1, box(a1:researchassistantcandidate(X))).
+a1:lecturercandidate(X) :- time_win(2,0,1, box(a1:researchassistant(X))).
+a1:lecturercandidate(X) :- time_win(4,0,1, box(a1:researchassistantcandidate(X))).
+a1:lecturercandidate(X) :- since(a1:publicationauthor(Y,X), a1:publication(Y), 1, 1), time_win(1,0,1, box(a1:graduatestudent(X))).
+a1:lecturer(X) :- until(a1:publicationauthor(Y,X), a1:lecturercandidate(X), 1, 2).
+a1:lecturer(X) :- time_win(5,0,1, box(a1:lecturercandidate(X))).
+a1:assistantprofessorcandidate(X) :- time_win(3,0,1, diamond(a1:lecturer(X))).
+a1:assistantprofessorcandidate(X) :- time_win(3,0,1, diamond(a1:publicationauthor(Y,X))), time_win(2,0,1, box(a1:lecturercandidate(X))).
+a1:assistantprofessorcandidate(X) :- time_win(3,0,1, diamond(a1:doctoraldegreefrom(X,Y))), time_win(2,0,1, box(a1:lecturercandidate(X))).
+a1:associateprofessorcandidate(X) :- time_win(5,0,1, box(a1:assistantprofessorcandidate(X))).
+a1:associateprofessorcandidate(X) :- time_win(3,0,1, diamond(a1:doctoraldegreefrom(X,Y))), a1:publicationauthor(Z,X), time_win(3,0,1, box(a1:lecturer(X))).
+a1:associateprofessorcandidate(X) :- time_win(3,0,1, box(a1:assistantprofessor(X))).
+a1:associateprofessorcandidate(X) :- a1:doctoraldegreefrom(X,Y), time_win(2,0,1, box(a1:assistantprofessorcandidate(X))).
+a1:associateprofessorcandidate(X) :- time_win(3,0,1, box(a1:assistantprofessor(X))).
+a1:associateprofessor(X) :- time_win(2,0,1, diamond(a1:associateprofessorcandidate(X))).
+a1:fullprofessorcandidate(X) :- time_win(3,0,1, diamond(a1:publicationauthor(Y,X))), time_win(2,0,1, box(a1:associateprofessorcandidate(X))).
+a1:fullprofessorcandidate(X) :- time_win(3,0,1, diamond(a1:publicationauthor(Y,X))), time_win(2,0,1, box(a1:associateprofessor(X))).
+a1:gooddepartment(Y) :- time_win(2,0,1, box(a1:worksfor(X,Y))), a1:fullprofessor(X).
+a1:smartstudent(X) :- time_win(2,0,1, diamond(a1:memberof(X,Y))), a1:undergraduatestudent(X), a1:gooddepartment(Y).
+a1:smartstudent(X) :- time_win(3,0,1, diamond(a1:memberof(X,Y))), a1:graduatestudent(X), a1:gooddepartment(Y).
+a1:gooddepartment(Y) :- time_win(1,0,1, diamond(a1:memberof(X,Y))), time_win(2,0,1, box(a1:smartstudent(X))).
+a1:scientistcandidate(X) :- time_win(2,0,1, diamond(a1:doctoraldegreefrom(X,Y))).
+a1:scientist(X) :- time_win(4,0,1, box(a1:scientistcandidate(X))).
+a1:scientist(X) :- time_win(2,0,1, diamond(a1:fullprofessor(X))).
+a1:fullprofessor(X) :- time_win(2,0,1, diamond(a1:scientist(X))).
+a1:university(Y) :- a1:mastersdegreefrom(X,Y).
+a1:degreefrom(X,Y) :- a1:hasalumnus(Y,X).
+a1:hasalumnus(X,Y) :- a1:degreefrom(Y,X).
+a1:employee(X) :- a1:faculty(X).
+a1:faculty(X) :- a1:professor(X).
+a1:professor(X) :- a1:associateprofessor(X).
+a1:person(Y) :- a1:member(X,Y).
+a1:professor(X) :- a1:assistantprofessor(X).
+a1:professor(X) :- a1:chair(X).
+a1:worksfor(X,Y) :- a1:headof(X,Y).
+a1:person(X) :- a1:degreefrom(X,Y).
+a1:university(Y) :- a1:degreefrom(X,Y).
+a1:person(Y) :- a1:hasalumnus(X,Y).
+a1:teachingassistant(X) :- a1:person(X), a1:teachingassistantof(X,Y), a1:course(Y).
+a1:chair(X) :- a1:person(X), a1:headof(X,Y), a1:department(Y).
+a1:memberof(X,Y) :- a1:member(Y,X).
+a1:member(X,Y) :- a1:memberof(Y,X).
+a1:course(Y) :- a1:teacherof(X,Y).
+a1:university(X) :- a1:hasalumnus(X,Y).
+a1:person(X) :- a1:telephone(X,Y).
+a1:organization(Y) :- a1:suborganizationof(X,Y).
+a1:memberof(X,Y) :- a1:worksfor(X,Y).
+a1:person(X) :- a1:employee(X).
+a1:person(X) :- a1:advisor(X,Y).
+a1:organization(X) :- a1:member(X,Y).
+a1:organization(X) :- a1:department(X).
+a1:faculty(X) :- a1:lecturer(X).
+a1:person(Y) :- a1:publicationauthor(X,Y).
+a1:professor(Y) :- a1:advisor(X,Y).
+a1:work(X) :- a1:course(X).
+a1:professor(X) :- a1:fullprofessor(X).
+a1:degreefrom(X,Y) :- a1:doctoraldegreefrom(X,Y).
+a1:teachingassistant(X) :- a1:teachingassistantof(X,Y).
+a1:person(X) :- a1:undergraduatedegreefrom(X,Y).
+a1:organization(X) :- a1:university(X).
+a1:person(X) :- a1:doctoraldegreefrom(X,Y).
+a1:university(Y) :- a1:doctoraldegreefrom(X,Y).
+a1:course(Y) :- a1:teachingassistantof(X,Y).
+a1:university(Y) :- a1:undergraduatedegreefrom(X,Y).
+a1:degreefrom(X,Y) :- a1:mastersdegreefrom(X,Y).
+a1:person(X) :- a1:graduatestudent(X).
+a1:person(X) :- a1:researchassistant(X).
+a1:student(X) :- a1:undergraduatestudent(X).
+a1:degreefrom(X,Y) :- a1:undergraduatedegreefrom(X,Y).
+a1:publication(X) :- a1:publicationauthor(X,Y).
+a1:person(X) :- a1:mastersdegreefrom(X,Y).
+a1:organization(X) :- a1:researchgroup(X).
+a1:faculty(X) :- a1:teacherof(X,Y).
+a1:person(X) :- a1:chair(X).
+a1:employee(X) :- a1:person(X), a1:worksfor(X,Y), a1:organization(Y).
+a1:course(X) :- a1:graduatecourse(X).
+a1:student(X) :- a1:person(X), a1:takescourse(X,Y), a1:course(Y).
+a1:person(X) :- a1:teachingassistant(X).
+a1:organization(X) :- a1:suborganizationof(X,Y).
+a1:person(X) :- a1:student(X).
+a1:person(X) :- a1:emailaddress(X,Y).
