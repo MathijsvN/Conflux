@@ -28,8 +28,6 @@ class MtlToLars(Translator):
     def translate(self, ir: ProgramIR, *, options=None) -> ProgramIR:
         """
         Translate a DatalogMTL ProgramIR into a LARS ProgramIR.
-        - We ignore rules for now.
-        - We expand temporal facts over each time in [a,b].
         """
         lars_ir = ProgramIR()
 

@@ -65,7 +65,7 @@ def condense_stream_lines(lines: list[str], *, min_run: int = 6) -> list[str]:
         run_len = j - i
         if run_len >= min_run:
             t1 = parsed[j-1][0]
-            out.append(f"{t0}–{t1}: {payload0}")
+            out.append(f"{t0}-{t1}: {payload0}")
         else:
             # emit individually
             for k in range(i, j):
