@@ -1,4 +1,4 @@
-time_win(90,0,1, box(immune(X))) :- since(nosympt(X), vaccinated(X), 21, 28).
-time_win(90,0,1, box(immune(X))) :- negtest(X), time_win(28,0,1, diamond(vaccinated(X))).
-immune(X) :- time_win(183,0,1, diamond(infected(X))), time_win(10,0,1, box(nosympt(X))).
-negtest(X) :- time_win(5,0,1, box(immune(X))).
+[$, 90] [B] immune(X) :- [$, 28] [B] ([$, 7] [D] vaccinated(X) && ([$, 0] [B] nosympt(X)) ) && [$, 21] [B] nosympt(X).
+[$, 90] [B] immune(X) :- negtest(X), [$, 28] [D] vaccinated(X).
+immune(X) :- [$, 183] [D] infected(X), [$, 10] [B] nosympt(X).
+negtest(X) :- [$, 5] [B] immune(X).
