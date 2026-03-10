@@ -30,8 +30,8 @@ def emit_rule(rule: Rule, *, target: Target = "laser2") -> str:
     head_s = emit_formula(rule.head, target=target)
     if not rule.body:
         return f"{head_s}."
-    body_s = ", ".join(emit_formula(lit, target=target) for lit in rule.body)
-    return f"{head_s} :- {body_s}."
+    body_s = " and ".join(emit_formula(lit, target=target) for lit in rule.body)
+    return f"{head_s} :- {body_s}"
 
 
 # ======================================================================
