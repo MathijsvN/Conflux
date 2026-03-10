@@ -1,0 +1,5 @@
+182-199: nosympt(ben)
+200: vaccinated(ben), nosympt(ben), immune(ben)
+201-204: nosympt(ben), immune(ben)
+205-230: nosympt(ben), immune(ben), immunecont5(ben), negtest(ben)
+231-320: nosympt(ben)

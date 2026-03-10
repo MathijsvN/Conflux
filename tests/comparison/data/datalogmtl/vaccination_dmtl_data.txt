@@ -1,0 +1,5 @@
+Vaccinated(ben)@[200,200]
+NoSympt(ben)@[182,320]
+Immune(ben)@[200,230]
+ImmuneCont5(ben)@[205,230]
+NegTest(ben)@[205,230]
