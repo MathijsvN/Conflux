@@ -1,0 +1,4 @@
+recentinfect(X) :- time_win(14,0,1, diamond(infected(X)))
+immunecont5(X) :- time_win(5,0,1, box(immune(X)))
+immune(X) :- time_win(30,0,1, diamond(vaccinated(X))) and time_win(7,0,1, box(nosympt(X)))
+negtest(X) :- immunecont5(X)

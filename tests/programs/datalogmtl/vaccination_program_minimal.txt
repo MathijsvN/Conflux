@@ -1,0 +1,4 @@
+RecentInfect(X)    :- Diamondminus[0,14]Infected(X)
+ImmuneCont5(X)     :- Boxminus[0,5]Immune(X)
+Immune(X)          :- Diamondminus[0,30]Vaccinated(X), Boxminus[0,7]NoSympt(X)
+NegTest(X)         :- ImmuneCont5(X)

@@ -1,0 +1,6 @@
+recentvacc(X) :- [$, 30] [D] vaccinated(X).
+nosymptcont(X) :- [$, 7] [B] nosympt(X).
+recentinfect(X) :- [$, 14] [D] infected(X).
+immunecont5(X) :- [$, 5] [B] immune(X).
+immune(X) :- recentvacc(X), nosymptcont(X).
+negtest(X) :- immunecont5(X).
