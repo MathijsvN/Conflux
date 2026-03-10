@@ -114,6 +114,9 @@ class MtlToLars(Translator):
             a, b = node.interval
             child = self._theta_formula(node.child)
 
+            if a != 0:
+                raise NotImplementedError("Non-zero lower bounds on unary temporal operators are not supported in this version.")
+
             # ----- Boxminus -----
             if kind == "boxminus":
                 # always in the past window
@@ -137,24 +140,11 @@ class MtlToLars(Translator):
 
             # ----- Boxplus (future always) -----
             if kind == "boxplus":
-                # LASER uses time_win the same way for future windows
-                return {
-                    "op": "time_win",
-                    "length": b,
-                    "offset": 0,
-                    "hop": 1,
-                    "inner": {"op": "box", "child": child},
-                }
+                raise NotImplementedError("No LARS implementation supports future box operators yet.")
 
             # ----- Diamondplus (future eventually) -----
             if kind == "diamondplus":
-                return {
-                    "op": "time_win",
-                    "length": b,
-                    "offset": 0,
-                    "hop": 1,
-                    "inner": {"op": "diamond", "child": child},
-                }
+                raise NotImplementedError("No LARS implementation supports future diamond operators yet.")
 
             raise NotImplementedError(f"Unary temporal operator not implemented: {kind}")
 
@@ -168,29 +158,10 @@ class MtlToLars(Translator):
             right = self._theta_formula(node.right)
 
             if kind == "until":
-                # α U[a,b] β  ≈  ∃t in window: β AND α holds until that t
-                return {
-                    "op": "until",
-                    "length": b,
-                    "offset": 0,
-                    "hop": 1,
-                    "a": a,
-                    "b": b,
-                    "left": left,
-                    "right": right,
-                }
+                raise NotImplementedError("No LARS implementation supports Until operators yet.")
 
             if kind == "since":
-                return {
-                    "op": "since",
-                    "length": b,
-                    "offset": 0,
-                    "hop": 1,
-                    "a": a,
-                    "b": b,
-                    "left": left,
-                    "right": right,
-                }
+                raise NotImplementedError("No LARS implementation supports Since operators yet.")
 
             raise NotImplementedError(f"Binary temporal operator not implemented: {kind}")
 

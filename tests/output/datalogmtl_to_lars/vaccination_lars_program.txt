@@ -1,4 +1,0 @@
-[$, 90] [B] immune(X) :- [$, 28] [B] ([$, 7] [D] vaccinated(X) && ([$, 0] [B] nosympt(X)) ) && [$, 21] [B] nosympt(X).
-[$, 90] [B] immune(X) :- negtest(X), [$, 28] [D] vaccinated(X).
-immune(X) :- [$, 183] [D] infected(X), [$, 10] [B] nosympt(X).
-negtest(X) :- [$, 5] [B] immune(X).
