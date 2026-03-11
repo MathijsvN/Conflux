@@ -1,0 +1,2 @@
+[console_scripts]
+conflux = conflux.cli.conflux_cli:main
